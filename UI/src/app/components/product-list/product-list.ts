@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CartService } from '../../services/cart';
+import { NotificationService } from '../../services/notification';
 import { Product } from '../../models/product';
 
 @Component({
@@ -12,6 +13,7 @@ import { Product } from '../../models/product';
 export class ProductList {
 
   cartService = inject(CartService);
+  notificationService = inject(NotificationService);
 
   searchText = '';
 
@@ -48,11 +50,11 @@ export class ProductList {
     const added = this.cartService.addToCart(product);
 
     if (!added) {
-      alert(`${product.name} is already in your cart!`);
+      this.notificationService.show(`${product.name} is already in your cart!`, 'danger');
       return;
     }
 
-    alert(`${product.name} added to cart successfully!`);
+    this.notificationService.show(`${product.name} added to cart successfully!`, 'success');
   }
 
   isAdded(productId: number): boolean {

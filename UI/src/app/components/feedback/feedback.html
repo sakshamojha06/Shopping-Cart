@@ -1,0 +1,59 @@
+<div class="toast-container position-fixed top-0 end-0 p-3" aria-live="polite" aria-atomic="true">
+  @if (notificationService.message(); as message) {
+    <div
+      class="toast show align-items-center border-0 mb-2"
+      [class.text-bg-success]="notificationService.type() === 'success'"
+      [class.text-bg-danger]="notificationService.type() === 'danger'"
+      [attr.role]="notificationService.type() === 'danger' ? 'alert' : 'status'">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i
+            class="bi me-2"
+            [class.bi-check-circle-fill]="notificationService.type() === 'success'"
+            [class.bi-exclamation-triangle-fill]="notificationService.type() === 'danger'"></i>
+          {{ message }}
+        </div>
+        <button
+          type="button"
+          class="btn-close btn-close-white me-2 m-auto"
+          aria-label="Close notification"
+          (click)="notificationService.dismiss()"></button>
+      </div>
+    </div>
+  }
+</div>
+
+@if (confirmationService.message(); as message) {
+  <div class="modal-backdrop fade show"></div>
+  <div
+    class="modal fade show d-block"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="confirmation-title"
+    (click)="confirmationService.finish(false)"
+    (keydown.escape)="confirmationService.finish(false)">
+    <div class="modal-dialog modal-dialog-centered" (click)="$event.stopPropagation()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmation-title">Please confirm</h5>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="confirmationService.finish(false)"></button>
+        </div>
+        <div class="modal-body">{{ message }}</div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="confirmationService.finish(false)">Cancel</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="confirmationService.finish(true)">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

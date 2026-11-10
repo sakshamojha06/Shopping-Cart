@@ -2,10 +2,11 @@ import { Component, signal } from '@angular/core';
 import { Navbar } from './components/navbar/navbar';
 import { ProductList } from './components/product-list/product-list';
 import { Cart } from './components/cart/cart';
+import { Feedback } from './components/feedback/feedback';
 
 @Component({
   selector: 'app-root',
-  imports: [Navbar, ProductList, Cart],
+  imports: [Navbar, ProductList, Cart, Feedback],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,0 +1,7 @@
+.toast-container {
+  z-index: 1090;
+}
+
+.modal {
+  overflow-y: auto;
+}
