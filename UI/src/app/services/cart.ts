@@ -7,6 +7,8 @@ import { Product } from "../models/product";
 export class CartService {
     private _cartItems = signal<Product[]>([]);
 
+    searchText = signal('');
+
     cartItems = this._cartItems.asReadonly();
 
     cartCount = computed(() => this._cartItems().length);

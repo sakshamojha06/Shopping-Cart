@@ -1,3 +1,4 @@
+
 <div class="products-section">
 
   <div class="d-flex justify-content-between align-items-center mb-3">
@@ -6,37 +7,58 @@
       Products
     </h5>
 
-    <span class="text-muted small">4 Products Available</span>
+    <span class="text-muted small">
+      {{ filteredProducts.length }} Products Available
+    </span>
   </div>
 
   <div class="product-grid">
 
-    @for (product of products; track product.id) {
+    @if (filteredProducts.length > 0) {
 
-    <div class="product-card">
+      @for (product of filteredProducts; track product.id) {
 
-      <div class="product-image">
-        <img [src]="product.image" [alt]="product.name">
+        <div class="product-card">
+
+          <div class="product-image">
+            <img [src]="product.image" [alt]="product.name">
+          </div>
+
+          <h6>{{ product.name }}</h6>
+
+          <p class="product-price">
+            ₹{{ product.price.toLocaleString('en-IN') }}
+          </p>
+
+          <button
+            class="btn w-100"
+            [class.btn-primary]="!isAdded(product.id)"
+            [class.btn-success]="isAdded(product.id)"
+            [disabled]="isAdded(product.id)"
+            (click)="addProduct(product)"
+          >
+            @if (isAdded(product.id)) {
+              <i class="bi bi-check-circle me-2"></i>
+              Added to Cart
+            } @else {
+              <i class="bi bi-cart-plus me-2"></i>
+              Add to Cart
+            }
+          </button>
+
+        </div>
+
+      }
+
+    } @else {
+
+      <div class="text-center p-4">
+        <i class="bi bi-search fs-1 text-muted"></i>
+        <h6 class="mt-2">No products found!</h6>
+        <p class="text-muted">
+          Try searching another product.
+        </p>
       </div>
-
-      <h6>{{ product.name }}</h6>
-
-      <p class="product-price">
-        ₹{{ product.price.toLocaleString('en-IN') }}
-      </p>
-
-      <button class="btn w-100" [class.btn-primary]="!isAdded(product.id)" [class.btn-success]="isAdded(product.id)"
-        [disabled]="isAdded(product.id)" (click)="addProduct(product)">
-        @if (isAdded(product.id)) {
-        <i class="bi bi-check-circle me-2"></i>
-        Added to Cart
-        } @else {
-        <i class="bi bi-cart-plus me-2"></i>
-        Add to Cart
-        }
-      </button>
-
-    </div>
 
     }
 

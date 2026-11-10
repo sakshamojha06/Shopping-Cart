@@ -9,4 +9,9 @@ import { CartService } from '../../services/cart';
 })
 export class Navbar {
   cartService = inject(CartService);
+
+  onSearch(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.cartService.searchText.set(value);
+  }
 }

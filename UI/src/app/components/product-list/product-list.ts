@@ -13,6 +13,8 @@ export class ProductList {
 
   cartService = inject(CartService);
 
+  searchText = '';
+
   products = [
     {
       id: 1,
@@ -47,5 +49,9 @@ export class ProductList {
 
   isAdded(productId: number): boolean {
     return this.cartService.isInCart(productId);
+  }
+
+  get filteredProducts(): Product[] {
+    return this.products.filter(product => product.name.toLowerCase().includes(this.cartService.searchText().toLowerCase()));
   }
 }
