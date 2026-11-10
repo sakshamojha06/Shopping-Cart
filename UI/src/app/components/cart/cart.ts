@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CartService } from '../../services/cart';
 
 @Component({
   imports: [],
@@ -6,4 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './cart.css',
   templateUrl: './cart.html',
 })
-export class Cart {}
+export class Cart {
+  cartService = inject(CartService);
+
+  removeProduct(productId: number): void {
+    this.cartService.removeFromCart(productId);
+  }
+
+  clearCart(): void {
+    this.cartService.clearCart();
+  }
+}

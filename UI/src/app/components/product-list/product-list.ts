@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CartService } from '../../services/cart';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-product-list',
@@ -8,6 +10,8 @@ import { Component } from '@angular/core';
   styleUrl: './product-list.css'
 })
 export class ProductList {
+
+  cartService = inject(CartService);
 
   products = [
     {
@@ -36,4 +40,12 @@ export class ProductList {
     }
   ];
 
+
+  addProduct(product: Product): void {
+    this.cartService.addToCart(product);
+  }
+
+  isAdded(productId: number): boolean {
+    return this.cartService.isInCart(productId);
+  }
 }
