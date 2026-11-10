@@ -44,7 +44,15 @@ export class ProductList {
 
 
   addProduct(product: Product): void {
-    this.cartService.addToCart(product);
+
+    const added = this.cartService.addToCart(product);
+
+    if (!added) {
+      alert(`${product.name} is already in your cart!`);
+      return;
+    }
+
+    alert(`${product.name} added to cart successfully!`);
   }
 
   isAdded(productId: number): boolean {

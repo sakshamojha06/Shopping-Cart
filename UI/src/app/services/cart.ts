@@ -15,14 +15,14 @@ export class CartService {
 
     totalPrice = computed(() => this._cartItems().reduce((total, item) => total + item.price, 0));
 
-    addToCart(product: Product): void {
-        this._cartItems.update(items => {
-            if (items.some(item => item.id === product.id)) {
-            return items;
-            }
+    addToCart(product: Product): boolean {
+        if (this.isInCart(product.id)) {
+            return false;
+        }
 
-            return [...items, product];
-        });
+        this._cartItems.update(items => [...items, product]);
+
+        return true;
     }
 
     removeFromCart(productId: number): void {
